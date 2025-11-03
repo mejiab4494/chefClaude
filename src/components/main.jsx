@@ -1,19 +1,26 @@
-import React from "react"
+import React, { useEffect } from "react"
 import ClaudeRecipe from "./claudeRecipe"
 import IngredientsList from "./ingredientsList"
 import { getRecipeFromMistral } from "./ai"
-import "../components/main.css"
+import chefClaudeImg from "../images/chefClaude.png"
 
 export function Main() {
     const [ingredients, setIngredients] = React.useState([])
     const [inputValue, setInputValue] = React.useState("")
 
     const [recipe, setRecipe] = React.useState("");
+    const recipeSectionRef = React.useRef(null);
 
     async function getRecipe() {
         const recipeMarkdown = await getRecipeFromMistral(ingredients);
         setRecipe(recipeMarkdown);
     }
+
+     React.useEffect(() => {
+        if (recipeSectionRef.current && recipe !== null) {
+        recipeSectionRef.current.scrollIntoView({ behavior: "smooth" })
+        }
+    }, [recipe])
 
 
     function addIngredients(e) {
@@ -23,6 +30,11 @@ export function Main() {
             setIngredients(items => [...items, inputValue.trim()])
             setInputValue("")
         }
+    }
+
+    function clearBtn() {
+        setIngredients([])
+        setRecipe("")
     }
 
     return (
@@ -36,11 +48,19 @@ export function Main() {
                     onChange={(e) => setInputValue(e.target.value)}
                 />
                 <button type="submit">Add Ingredient</button>
+                <button onClick={clearBtn}>Clear</button>
             </form>
+
+            {ingredients.length === 0 && (
+                <div className="chefClaude">
+                    <img src={chefClaudeImg} alt="chefClaude" />
+                </div>
+            )}
             {ingredients.length > 0 && 
-            <IngredientsList
-            ingredients={ingredients}
-            getRecipe={getRecipe}
+                <IngredientsList
+                    ref={recipeSectionRef}
+                    ingredients={ingredients}
+                    getRecipe={getRecipe}
             />}
 
                 {recipe && <ClaudeRecipe recipe={recipe}/>}

@@ -1,6 +1,8 @@
 
 * {
-  margin: 0px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* prevents overflow from padding/borders */
 }
 
 .body {
@@ -8,5 +10,7 @@
   justify-content: center;
   margin: 0 auto;
   flex-wrap: wrap;
-  max-width: 720px;;
+  max-width: 720px;
+  overflow-x: hidden;  /* hides horizontal scroll */
+  background-color: rgb(243, 240, 240); /* match your main bg if you like */
 }

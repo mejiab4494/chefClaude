@@ -1,11 +1,28 @@
 main {
     padding: 30px 30px 10px;
-    width: 720px;
+    width: 100%;
     min-height: 100vh;
     height: auto;
     background-color: rgb(243, 240, 240);
+    box-sizing: border-box;
 }
 
+.chefClaude {
+   display: flex;
+    justify-content: center;   /* centers horizontally */
+    align-items: center;       /* centers vertically */
+    width: 300px;
+    height: 300px;
+    padding-top: 17em;       
+    margin: 0 auto;            /* centers the container within its parent */
+}
+
+.chefClaude img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
 .add-ingredient-form {
     display: flex;
     justify-content: center;
@@ -35,7 +52,6 @@ main {
 }
 
 .add-ingredient-form > button::before {
-    content: "+";
     margin-right: 5px;
 }
 
@@ -96,6 +112,11 @@ ul.ingredients-list > li {
     line-height: 28px;
     font-size: 1.125rem;
     font-weight: 400;
+    word-wrap: break-word;       /* breaks long words */
+    overflow-wrap: break-word;   /* modern version */
+    white-space: pre-wrap;       /* keeps line breaks but wraps long lines */
+    max-width: 100%;             /* ensures it doesn’t exceed container width */
+    box-sizing: border-box;      /* ensures padding counts inside width */
 }
 
 .suggested-recipe-container ul li, .suggested-recipe-container ol li {
@@ -106,4 +127,9 @@ ul.ingredients-list > li {
     display: flex;
     justify-content: center;
     margin-bottom: 1.5em;
+}
+
+.suggested-recipe-container p {
+    margin-bottom: 1em;
+    word-break: break-word;
 }
